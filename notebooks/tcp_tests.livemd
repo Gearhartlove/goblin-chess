@@ -15,7 +15,7 @@ defmodule MyTest do
     # Connect to the server
     {:ok, socket} = :gen_tcp.connect(~c"localhost", 4000, [:binary, active: false])
 
-    echo = <<42, 42>>
+    echo = "hello world" <> <<0>>
     # Send a request to the server
     :ok = :gen_tcp.send(socket, echo)
 
