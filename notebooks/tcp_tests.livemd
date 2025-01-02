@@ -1,0 +1,38 @@
+# ThousandIsland Initial TCP Tests
+
+## Section
+
+```elixir
+ExUnit.configure(exclude: [:skip])
+ExUnit.start(autorun: false)
+```
+
+```elixir
+defmodule MyTest do
+  use ExUnit.Case, async: true
+
+  test "server responds to requests" do
+    # Connect to the server
+    {:ok, socket} = :gen_tcp.connect(~c"localhost", 4000, [:binary, active: false])
+
+    echo = <<42, 42>>
+    # Send a request to the server
+    :ok = :gen_tcp.send(socket, echo)
+
+    # Receive the response from the server
+    {:ok, response} = :gen_tcp.recv(socket, 0)
+
+    # Assert the response is as expected
+    assert response == echo
+
+    # Close the connection
+    :gen_tcp.close(socket)
+  end
+end
+
+ExUnit.run()
+```
+
+```elixir
+
+```

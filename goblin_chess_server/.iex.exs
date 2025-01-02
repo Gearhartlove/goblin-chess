@@ -1,1 +1,1 @@
-IEx.configuration(auto_reload: true)
+IEx.configure(auto_reload: true)

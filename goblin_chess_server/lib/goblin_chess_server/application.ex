@@ -8,6 +8,7 @@ defmodule GoblinChessServer.Application do
   @impl true
   def start(_type, _args) do
     children = [
+      {ThousandIsland, port: 4000, handler_module: GoblinChessServer.TCPHandler}
       # Starts a worker by calling: GoblinChessServer.Worker.start_link(arg)
       # {GoblinChessServer.Worker, arg}
     ]
