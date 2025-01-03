@@ -4,17 +4,16 @@ defmodule GoblinChessServer.TCPHandler do
   @impl ThousandIsland.Handler
   def handle_data(<<"MOVE", move::binary-size(1)>> = data, socket, state) do
     ThousandIsland.Socket.send(socket, data)
-  
-    IO.puts("move=#{inspect(move)}")
+
+    IO.puts("move = #{inspect(move)}")
     {:continue, state}
   end
 
   @impl ThousandIsland.Handler
   def handle_data(<<opt::binary-size(4), rest::binary>> = data, socket, state) do
     ThousandIsland.Socket.send(socket, data)
-  
-    IO.puts("UNSUPPORTED OPT opt=#{opt}")
+
+    IO.puts("UNSUPPORTED OPT opt=#{opt} rest=#{inspect(rest)}")
     {:continue, state}
   end
 end
-
