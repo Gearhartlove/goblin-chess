@@ -34,24 +34,23 @@ func _process(_delta: float) -> void:
 		var available_bytes: int = _stream.get_available_bytes()
 		if available_bytes > 0:
 			print("available bytes: ", available_bytes)
-			var data: Array = _stream.get_partial_data(available_bytes)
+			var partial_data: Array = _stream.get_partial_data(available_bytes)
 			# Check for read error.
-			if data[0] != OK:
-				print("Error getting data from stream: ", data[0])
+			if partial_data[0] != OK:
+				print("Error getting data from stream: ", partial_data[0])
 				emit_signal("error")
 			else:
-				emit_signal("data", data[1])
+				emit_signal("data", partial_data[1])
 
 func connect_to_host(host: String, port: int) -> void:
 	print("Connecting to %s:%d" % [host, port])
 	_stream.connect_to_host(host, port)
 
-func send(data: PackedByteArray) -> bool:
+func send(bytes: PackedByteArray) -> bool:
 	if _status != _stream.STATUS_CONNECTED:
-		print("Error: Stream is not currently connected.")
 		return false
-	var error: int = _stream.put_data(data)
-	if error != OK:
+	var stream_error: int = _stream.put_data(bytes)
+	if stream_error != OK:
 		print("Error writing to stream: ", error)
 		return false
 	return true

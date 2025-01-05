@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://d178wdmijggal"]
+
+[ext_resource type="Script" path="res://handlers.gd" id="1_l3t5l"]
+[ext_resource type="Script" path="res://client.gd" id="2_qfexw"]
+[ext_resource type="Script" path="res://debug.gd" id="3_tonwb"]
+
+[node name="game" type="Node2D"]
+
+[node name="handlers" type="Node2D" parent="."]
+script = ExtResource("1_l3t5l")
+
+[node name="client" type="Node" parent="handlers"]
+script = ExtResource("2_qfexw")
+
+[node name="Button" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 456.0
+offset_top = 300.0
+offset_right = 630.0
+offset_bottom = 393.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Move"
+script = ExtResource("3_tonwb")
