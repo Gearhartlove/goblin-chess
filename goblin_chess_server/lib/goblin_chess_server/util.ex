@@ -1,3 +1,11 @@
 defmodule GoblinChessServer.Util do
-  @type piece() :: :pawn | :knight | :bishop | :rook | :queen | :king
+  @moduledoc """
+  Utility functions for GoblinChessServer.
+  """
+
+  defmacro __using__(_opts) do
+    quote do
+      @type piece() :: GoblinChessServer.Types.piece()
+    end
+  end
 end
