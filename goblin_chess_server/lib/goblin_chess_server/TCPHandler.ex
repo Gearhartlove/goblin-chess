@@ -4,26 +4,54 @@ defmodule GoblinChessServer.TCPHandler do
   @impl ThousandIsland.Handler
   def handle_data(
         <<
-          "MOVE_",
+          "PICKUP",
           position::binary-size(1),
           piece::binary-size(1),
           player::binary-size(1),
-          matchId::binary-size(1), # ??? - no idea on the size here
+          # ??? - no idea on the size here
+          matchId::binary-size(1)
+        >>,
+        socket,
+        state
+      ) do
+    {:continue, state}
+  end
+  # checkmate (win the game), put a king in check, promote a piece, take another piece
+  @impl ThousandIsland.Handler
+  def handle_data(
+        <<
+          "MOVE",
+          from::binary-size(1),
+          too::binary-size(1),
+          piece::binary-size(1),
+          player::binary-size(1),
+          # ??? - no idea on the size here
+          matchId::binary-size(1)
         >> = data,
         socket,
         state
       ) do
-    ThousandIsland.Socket.send(socket, data)
-    GoblinChessServer.Database.store("MOVE_" %{position: position, piece: piece, player: player, matchId: matchId})
-    # record move event for current match; their will be a database that will record each move and will allow the player
-    # to replay their games if they wish too.
-
-    IO.puts("MOVE_ position=#{position} piece=#{piece} player=#{player}")
-
-    move
-    |> validate()
-    |> state() # returns either the new board state or the state of the game (winner / loser / draw)
-
+    # IO.puts("MOVE_ position=#{position} piece=#{piece} player=#{player}")
+    # TODO
+    # case GoblinChessServer.Engine.valid?(piece, from, too, player, state[:board]) do
+      #       false ->
+      #         ThousandIsland.Socket.send(socket, {:nak, :invalid_move})
+      #         {:continue, state}
+      # 
+      #       true ->
+      #         case GoblinChessServer.Engine.move() do 
+      #         end
+      # 
+      #         ThousandIsland.Socket.send(socket, :ack)
+      #         # TODO
+      #         GoblinChessServer.Database.store(
+      #           "MOVE_",
+      #           %{position: position, piece: piece, player: player, matchId: matchId}
+      #         )
+      # 
+      #         {:continue, Keyword.replace(state, :board, updated_board)}
+      #     end
+      # 
     {:continue, state}
   end
 
