@@ -16,6 +16,7 @@ defmodule GoblinChessServer.TCPHandler do
       ) do
     {:continue, state}
   end
+
   # checkmate (win the game), put a king in check, promote a piece, take another piece
   @impl ThousandIsland.Handler
   def handle_data(
@@ -34,24 +35,24 @@ defmodule GoblinChessServer.TCPHandler do
     # IO.puts("MOVE_ position=#{position} piece=#{piece} player=#{player}")
     # TODO
     # case GoblinChessServer.Engine.valid?(piece, from, too, player, state[:board]) do
-      #       false ->
-      #         ThousandIsland.Socket.send(socket, {:nak, :invalid_move})
-      #         {:continue, state}
-      # 
-      #       true ->
-      #         case GoblinChessServer.Engine.move() do 
-      #         end
-      # 
-      #         ThousandIsland.Socket.send(socket, :ack)
-      #         # TODO
-      #         GoblinChessServer.Database.store(
-      #           "MOVE_",
-      #           %{position: position, piece: piece, player: player, matchId: matchId}
-      #         )
-      # 
-      #         {:continue, Keyword.replace(state, :board, updated_board)}
-      #     end
-      # 
+    #       false ->
+    #         ThousandIsland.Socket.send(socket, {:nak, :invalid_move})
+    #         {:continue, state}
+    # 
+    #       true ->
+    #         case GoblinChessServer.Engine.move() do 
+    #         end
+    # 
+    #         ThousandIsland.Socket.send(socket, :ack)
+    #         # TODO
+    #         GoblinChessServer.Database.store(
+    #           "MOVE_",
+    #           %{position: position, piece: piece, player: player, matchId: matchId}
+    #         )
+    # 
+    #         {:continue, Keyword.replace(state, :board, updated_board)}
+    #     end
+    # 
     {:continue, state}
   end
 
